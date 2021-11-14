@@ -8,11 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.Enumeration;
 
-/**
- * Company :  北京动力节点
- * Author :   Andy
- * Description : 负责页面的统一跳转
- */
+
 @Controller
 public class ViewController {
 

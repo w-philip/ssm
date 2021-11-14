@@ -1,6 +1,8 @@
 package com.bjpowernode.blog.back.controller;
 
 import com.bjpowernode.blog.back.bean.Article;
+import com.bjpowernode.blog.back.bean.Category;
+import com.bjpowernode.blog.back.bean.Tag;
 import com.bjpowernode.blog.back.bean.User;
 import com.bjpowernode.blog.back.service.ArticleService;
 import com.bjpowernode.blog.base.bean.ResultVo;
@@ -53,5 +55,66 @@ public class ArticleController {
         return resultVo;
     }
 
+    //异步查询所有栏目
+    @RequestMapping("/article/queryCategory")
+    @ResponseBody
+    public List<Category> queryCategory(){
+        List<Category> categories = articleService.queryCategory();
+        return categories;
+    }
+
+    //查询栏目下的标签
+    @RequestMapping("/article/queryTags")
+    @ResponseBody
+    public List<Tag> queryTags(String cid){
+        List<Tag> tags = articleService.queryTags(cid);
+        return tags;
+    }
+
+    //异步发布文章
+    @RequestMapping("/article/saveOrUpdate")
+    @ResponseBody
+    public ResultVo saveOrUpdate(Article article,HttpSession session){
+        ResultVo resultVo = new ResultVo();
+        try {
+            //获取登录用户
+            User user = (User) session.getAttribute("user");
+            article.setUid(user.getUid());
+            article = articleService.saveOrUpdate(article);
+            resultVo.setOk(true);
+            if(article.getAid() == null){
+                resultVo.setMess("发布文章成功");
+            }else{
+                resultVo.setMess("修改文章文章成功");
+            }
+            resultVo.setT(article);
+        }catch (BlogException e){
+            resultVo.setMess(e.getMessage());
+        }
+        return resultVo;
+    }
+
+    //异步查询文章信息
+    @RequestMapping("/article/queryById")
+    @ResponseBody
+    public Article queryById(String id){
+        Article article = articleService.queryById(id);
+        return article;
+    }
+
+    //异步删除文章
+    @RequestMapping("/article/deleteById")
+    @ResponseBody
+    public ResultVo deleteById(String id){
+        ResultVo resultVo = new ResultVo();
+        try {
+            articleService.deleteById(id);
+            resultVo.setOk(true);
+            resultVo.setMess("删除文章成功");
+        }catch (BlogException e){
+            resultVo.setMess(e.getMessage());
+        }
+        return resultVo;
+    }
 
 }

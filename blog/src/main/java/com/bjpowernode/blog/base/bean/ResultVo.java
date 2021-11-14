@@ -2,12 +2,8 @@ package com.bjpowernode.blog.base.bean;
 
 import lombok.Data;
 
-/**
- * Company :  北京动力节点
- * Author :   Andy
- * Date : 2021/7/19
- * Description : 给客户端返回消息的Bean对象，返回数据
- */
+
+
 @Data
 public class ResultVo<T> {
     private String mess;//给客户端的消息

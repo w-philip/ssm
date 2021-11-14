@@ -10,11 +10,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Company :  北京动力节点
- * Author :   Andy
- * Description : 用于上传图片工具类
- */
+
 public class FileUploadUtil {
 
     //上传md的图片

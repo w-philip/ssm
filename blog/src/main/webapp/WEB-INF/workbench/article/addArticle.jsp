@@ -319,20 +319,8 @@
         });
     });
 
-    //选中栏目后加载栏目下对应的种类
-    $('#category').change(function () {
-        //获取选中的栏目，把主键发送到后台查询
-        $.get("/blog/article/queryByCategory",
-            {'cid':$(this).val()},function (data) {
-                $('#tags').html("");
-            for(var i = 0 ; i < data.length; i++){
-                $('#tags').append("<input name='tid' type=\"checkbox\" value="+data[i].tname+">"+data[i].tname+" &nbsp;&nbsp;");
-            }
-        },'json');
-    });
-
-    //上传文章logo
-    //异步上传文件
+    // 上传文章logo
+    // 异步上传文件
     $('#img').change(function () {
         $.ajaxFileUpload({
                 url: '/blog/fileUpload', //用于文件上传的服务器端请求地址
@@ -358,6 +346,7 @@
             $('#categories').append("<option value="+data[i].cid+">"+data[i].cname+"</option>");
         }
     },'json');
+
     //选中栏目，加载栏目下对应的标签
     $('#categories').change(function () {
         $.get("/blog/article/queryTags",{'cid':$(this).val()},function (data) {
@@ -369,6 +358,8 @@
             }
         },'json');
     });
+
+
 
     //发布文章
     function punish() {
